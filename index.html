@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Slot Machine</title>
+    <style>
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .reel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        img {
+            width: 100px;
+            height: 100px;
+            margin: 0 10px;
+        }
+
+        .win-symbol {
+            border: 2px solid gold;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slot-machine">
+        <div class="reel" id="reel1"></div>
+        <div class="reel" id="reel2"></div>
+        <div class="reel" id="reel3"></div>
+        <div class="reel" id="reel4"></div>
+        <label for="betAmount">Vsazená částka (Kč): </label>
+        <input type="number" id="betAmount" min="2" max="10" step="1" value="2">
+        <button id="spin">Zatočit</button>
+        <p id="result"></p>
+        <p id="account">Aktuální stav účtu: 100 Kč</p>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
+
+
