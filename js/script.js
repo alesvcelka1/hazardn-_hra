@@ -68,19 +68,29 @@ function spinReel(reel) {
         }, spinInterval);
     });
 }
-
 function calculateWin(betAmount, results) {
     // Podmínky na výhru pro symboly vedle sebe nebo v kříži
     if (
+        (results[0] === results[1] && results[1] === results[2] && results[2] === results[3]) // Výhra pro čtyři stejné symboly
+    ) {
+        return betAmount * 15; // Výhra pro čtyři stejné symboly
+    } else if (
         (results[0] === results[1] && results[1] === results[2]) || // Výhra pro symboly vedle sebe
         (results[0] === results[1] && results[2] === results[3]) || // Výhra pro křížové symboly
         (results[1] === results[2] && results[2] === results[3]) // Výhra pro symboly vedle sebe
     ) {
-        return betAmount * 10; // Výhra pro shodu symbolů vedle sebe nebo v kříži
+        return betAmount * 10; // Výhra pro shodu tří symbolů vedle sebe nebo v kříži
+    } else if (
+        (results[0] === results[1]) || // Výhra pro dva stejné symboly vedle sebe
+        (results[1] === results[2]) || // Výhra pro dva stejné symboly vedle sebe
+        (results[2] === results[3]) // Výhra pro dva stejné symboly vedle sebe
+    ) {
+        return betAmount * 5; // Výhra pro shodu dvou symbolů vedle sebe
     } else {
         return 0; // Prohra
     }
 }
+
 
 function updateAccount(amount) {
     accountBalance += amount;
@@ -90,7 +100,7 @@ function updateAccount(amount) {
 function displayResult(winAmount, results) {
     const winSymbols = getWinningSymbols(results);
     if (winAmount > 0 && winSymbols.length > 0) {
-        resultDisplay.innerHTML = `Gratulujeme, vyhráli jste ${winAmount} Kč!<br>Vyhráli jste tyto symboly: ${winSymbols.join(', ')}`;
+        resultDisplay.innerHTML = `Gratulujeme, vyhráli jste ${winAmount} Kč!`;
     } else {
         resultDisplay.textContent = `Bohužel, prohráli jste. Zkuste to znovu.`;
     }
