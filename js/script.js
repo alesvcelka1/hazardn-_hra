@@ -47,7 +47,7 @@ function spinReel(reel) {
     reel.innerHTML = '';
     const symbolsToShow = 4;
 
-    const spinInterval = 200; 
+    const spinInterval = 200;
 
     return new Promise(resolve => {
         let currentSymbol = 0;
@@ -55,7 +55,7 @@ function spinReel(reel) {
         const spinIntervalId = setInterval(() => {
             const symbolIndex = Math.floor(Math.random() * symbols.length);
             const img = document.createElement('img');
-            img.src = `./img/${symbols[symbolIndex].toLowerCase()}.jpg`; 
+            img.src = `./img/${symbols[symbolIndex].toLowerCase()}.jpg`;
             img.alt = symbols[symbolIndex];
             reel.appendChild(img);
 
@@ -70,18 +70,15 @@ function spinReel(reel) {
 }
 
 function calculateWin(betAmount, results) {
-    const uniqueSymbols = new Set(results);
-    const uniqueSymbolCount = uniqueSymbols.size;
-
-    switch (uniqueSymbolCount) {
-        case 1:
-            return betAmount * 10; // Výhra pro čtyři stejné symboly
-        case 2:
-            return betAmount * 3; // Výhra pro tři stejné symboly
-        case 3:
-            return betAmount * 2; // Výhra pro dva stejné symboly
-        default:
-            return 0; // Prohra
+    // Podmínky na výhru pro symboly vedle sebe nebo v kříži
+    if (
+        (results[0] === results[1] && results[1] === results[2]) || // Výhra pro symboly vedle sebe
+        (results[0] === results[1] && results[2] === results[3]) || // Výhra pro křížové symboly
+        (results[1] === results[2] && results[2] === results[3]) // Výhra pro symboly vedle sebe
+    ) {
+        return betAmount * 10; // Výhra pro shodu symbolů vedle sebe nebo v kříži
+    } else {
+        return 0; // Prohra
     }
 }
 
@@ -102,6 +99,7 @@ function displayResult(winAmount, results) {
 function getWinningSymbols(results) {
     return results.map(result => symbols[result]);
 }
+
 
 
 
